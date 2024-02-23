@@ -1,21 +1,10 @@
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+
+const httpLink = createHttpLink({
+    uri: 'http://localhost:4000'
+});
 
 export const client = new ApolloClient({
-    uri: 'https://flyby-router-demo.herokuapp.com/',
+    link: httpLink,
     cache: new InMemoryCache(),
-  });
-
-client
-    .query({
-        query: gql`
-        query GetLocations {
-            locations {
-            id
-            name
-            description
-            photo
-            }
-        }
-        `,
-    })
-    .then((result) => console.log(result));
+});
