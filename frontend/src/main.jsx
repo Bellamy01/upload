@@ -5,7 +5,9 @@ import './index.css'
 import { ApolloProvider } from '@apollo/client'
 import { client } from './lib/client.js'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+const root = ReactDOM.createRoot(document.getElementById('root'))
+
+root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <App />

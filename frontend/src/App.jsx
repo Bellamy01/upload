@@ -1,11 +1,12 @@
 import './App.css'
+import DisplayConnections from './components/display-connections'
 
-function App() {
+export default function App() {
   return (
-    <>
-      <p>Hello from the other side</p>
-    </>
+    <div>
+      <p>My first Apollo app 🚀</p>
+      <br />
+      <DisplayConnections />
+    </div>
   )
 }
-
-export default App
