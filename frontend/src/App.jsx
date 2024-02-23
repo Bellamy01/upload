@@ -1,4 +1,4 @@
-import './App.css'
+import './styles/App.css'
 import DisplayConnections from './components/display-connections'
 
 export default function App() {
