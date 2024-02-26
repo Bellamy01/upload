@@ -23,7 +23,7 @@ export default function LinkList() {
     if (error) return <p>Error: {error.message}</p>;
 
     return (
-        <div>
+        <div className='bg-orange-50 flex flex-col gap-2 py-2 min-h-[84vh]'>
             {data.feed.links.map((link) => (
                 <Link key={link.id} link={link} />
             ))}
