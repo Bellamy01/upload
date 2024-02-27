@@ -2,13 +2,15 @@ import { RouterProvider, Route, createBrowserRouter, createRoutesFromElements } 
 import LinkList from './components/link-list'
 import './styles/App.css'
 import CreateLink from './components/create-link'
-import Header from './components/header'
+import Layout from './components/layout'
+import Login from './components/login'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<Header />}>
+    <Route path='/' element={<Layout />}>
       <Route index element={<LinkList />} />
       <Route path='/create' element={<CreateLink />} />
+      <Route path='/login' element={<Login/>} />
     </Route>
   )
 )
