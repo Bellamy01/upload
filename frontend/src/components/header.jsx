@@ -1,6 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Header() {
+    const navigate = useNavigate();
+    const auth_token = localStorage.getItem('auth_token');
+    console.log(`Token ${auth_token}`);
     return (
         <>
             <div className="flex px-2 py-1 justify-between no-wrap bg-main/80 text-white">
@@ -23,7 +26,14 @@ export default function Header() {
                     </Link>
                 </div>
                 <div>
-                    <Link to="/login">Login</Link>
+                    {auth_token ? (
+                        <button onClick={() => {
+                            localStorage.removeItem('auth_token');
+                            navigate('/');
+                        }}>Logout</button>
+                    ) : (
+                        <Link to="/login">Login</Link>
+                    )}
                 </div>
             </div>
         </>
