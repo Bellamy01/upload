@@ -1,7 +1,7 @@
 export default function Footer() {
     return (
-        <div className="border-2 border-x-0 border-main flex flex-col items-center justify-center py-2 border-b-0 bg-orange-50">
-            <div className="flex gap-1 items-center justify-center">
+        <div className="border-2 gap-2 border-x-0 border-main flex flex-col items-center justify-center py-2 border-b-0 bg-orange-50">
+            <div className="flex gap-1 items-center justify-center text-xs">
                 <p>Guidelines</p>
                 <p>|</p>
                 <p>FAQ</p>

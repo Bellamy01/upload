@@ -4,6 +4,7 @@ import './styles/App.css'
 import CreateLink from './components/create-link'
 import Layout from './components/layout'
 import Login from './components/login'
+import Search from './components/search'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -11,6 +12,7 @@ const router = createBrowserRouter(
       <Route index element={<LinkList />} />
       <Route path='/create' element={<CreateLink />} />
       <Route path='/login' element={<Login/>} />
+      <Route path='/search' element={<Search/>} />
     </Route>
   )
 )
