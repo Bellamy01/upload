@@ -1,20 +1,7 @@
-import { useQuery, gql } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import Link from "./link"
+import { FEED_QUERY } from '../lib/mutations';
 
-const FEED_QUERY = gql`
-    {
-        feed {
-            id
-            links {
-                id
-                createdAt
-                url
-                description
-            }
-        }
-    }
-`
-    ;
 
 export default function LinkList() {
     const { loading, error, data } = useQuery(FEED_QUERY);
@@ -24,8 +11,8 @@ export default function LinkList() {
 
     return (
         <div className='bg-orange-50 flex flex-col gap-2 py-2 min-h-[84vh]'>
-            {data.feed.links.map((link) => (
-                <Link key={link.id} link={link} />
+            {data.feed.links.map((link, index) => (
+                <Link key={link.id} link={link} index={index} />
             ))}
         </div>
     )

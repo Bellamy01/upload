@@ -1,8 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { AUTH_TOKEN } from '../lib/constants';
 
 export default function Header() {
     const navigate = useNavigate();
-    const auth_token = localStorage.getItem('auth_token');
+    const auth_token = localStorage.getItem(AUTH_TOKEN);
     console.log(`Token ${auth_token}`);
     return (
         <>
@@ -28,7 +29,7 @@ export default function Header() {
                 <div>
                     {auth_token ? (
                         <button onClick={() => {
-                            localStorage.removeItem('auth_token');
+                            localStorage.removeItem(AUTH_TOKEN);
                             navigate('/');
                         }}>Logout</button>
                     ) : (

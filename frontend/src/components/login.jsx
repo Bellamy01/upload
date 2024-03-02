@@ -1,34 +1,8 @@
-import { gql, useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { useState } from "react"
 import { useNavigate } from 'react-router-dom'
-
-const SIGNUP_MUTATION = gql`
-  mutation SignupMutation(
-    $email: String!
-    $password: String!
-    $name: String!
-  ) {
-    signup(
-      email: $email
-      password: $password
-      name: $name
-    ) {
-      token
-    }
-  }
-`;
-
-const LOGIN_MUTATION = gql`
-  mutation LoginMutation(
-    $email: String!
-    $password: String!
-  ) {
-    login(email: $email, password: $password) {
-      token
-    }
-  }
-`;
-
+import { AUTH_TOKEN } from '../lib/constants';
+import { LOGIN_MUTATION, SIGNUP_MUTATION } from '../lib/mutations';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -45,7 +19,7 @@ export default function Login() {
             password: formState.password,
         },
         onCompleted: ({ login }) => {
-            localStorage.setItem('auth_token', login.token);
+            localStorage.setItem(AUTH_TOKEN, login.token);
             navigate('/')
         }
     });
@@ -57,7 +31,8 @@ export default function Login() {
             password: formState.password,
         },
         onCompleted: ({ signup }) => {
-            localStorage.setItem('auth_token', signup.token)
+            localStorage.setItem(AUTH_TOKEN, signup.token)
+            navigate('/')
         }
     });
 

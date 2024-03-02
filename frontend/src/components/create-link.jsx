@@ -1,21 +1,10 @@
 import { useState } from "react";
-import { useMutation, gql } from '@apollo/client';
-
-const CREATE_LINK_MUTATION = gql`
-    mutation PostMutation(
-        $description: String!
-        $url: String!
-    ) {
-        post (description: $description, url: $url) {
-            id
-            createdAt
-            url
-            description
-        } 
-    }
-`
+import { useNavigate } from "react-router-dom";
+import { useMutation } from '@apollo/client';
+import { CREATE_LINK_MUTATION, FEED_QUERY } from "../lib/mutations";
 
 export default function CreateLink() {
+    const navigate = useNavigate();
     const [formState, setFormState] = useState({
         description: '',
         url: ''
@@ -25,7 +14,22 @@ export default function CreateLink() {
         variables: {
             description: formState.description,
             url: formState.url,
-        }
+        },
+        update: (cache, { data: { post } }) => {
+            const data = cache.readQuery({
+                query: FEED_QUERY,
+            });
+
+            cache.writeQuery({
+                query: FEED_QUERY,
+                data: {
+                    feed: {
+                        links: [post, ...data.feed.links]
+                    }
+                },
+            });
+        },
+        onCompleted: () => navigate('/')
     });
 
     return (
@@ -74,7 +78,7 @@ export default function CreateLink() {
                         htmlFor="url"
                         className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-orange-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">URL</label>
                 </div>
-                <button type="submit" className="text-white bg-orange-400 hover:bg-orange-600 focus:ring-4 uppercase focus:outline-none focus:ring-orange-200 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
+                <button type="submit" className="text-white bg-main hover:bg-main/60 focus:ring-1 uppercase focus:outline-none focus:ring-main/20 text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
             </form>
         </div>
     )
