@@ -1,12 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useMutation } from '@apollo/client'
-import { AUTH_TOKEN } from '../lib/constants';
+import { AUTH_TOKEN, LINKS_PER_PAGE } from '../lib/constants';
 import { timeDifferenceForDate } from '../lib/utils';
 import { FEED_QUERY, VOTE_MUTATION } from '../lib/mutations';
 
 export default function Link(props) {
     const { link } = props;
     const auth_token = localStorage.getItem(AUTH_TOKEN);
+    const take = LINKS_PER_PAGE;
+    const skip = 0;
+    const orderBy = { createdAt: 'desc' };
 
     const [vote] = useMutation(VOTE_MUTATION, {
         variables: {
@@ -14,7 +17,12 @@ export default function Link(props) {
         },
         update: (cache, { data: { vote } }) => {
             const { feed } = cache.readQuery({
-                query: FEED_QUERY
+                query: FEED_QUERY,
+                variables: {
+                    take,
+                    skip,
+                    orderBy
+                }
             });
 
             const updateLinks = feed.links.map((feedLink) => {
@@ -33,6 +41,11 @@ export default function Link(props) {
                     feed: {
                         links: updateLinks
                     }
+                },
+                variables: {
+                    take,
+                    skip,
+                    orderBy
                 }
             })
         }

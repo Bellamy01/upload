@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from '@apollo/client';
 import { CREATE_LINK_MUTATION, FEED_QUERY } from "../lib/mutations";
+import { LINKS_PER_PAGE } from "../lib/constants";
 
 export default function CreateLink() {
     const navigate = useNavigate();
@@ -9,6 +10,9 @@ export default function CreateLink() {
         description: '',
         url: ''
     });
+    const take = LINKS_PER_PAGE;
+    const skip = 0;
+    const orderBy = { createdAt: 'desc' };
 
     const [createLink] = useMutation(CREATE_LINK_MUTATION, {
         variables: {
@@ -18,6 +22,11 @@ export default function CreateLink() {
         update: (cache, { data: { post } }) => {
             const data = cache.readQuery({
                 query: FEED_QUERY,
+                variables: {
+                    take,
+                    skip,
+                    orderBy
+                }
             });
 
             cache.writeQuery({
@@ -27,6 +36,11 @@ export default function CreateLink() {
                         links: [post, ...data.feed.links]
                     }
                 },
+                variables: {
+                    take,
+                    skip,
+                    orderBy
+                }
             });
         },
         onCompleted: () => navigate('/')

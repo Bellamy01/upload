@@ -19,6 +19,10 @@ export default function Header() {
                         new
                     </Link>
                     <p>|</p>
+                    <Link to="/top" className="no-underline">
+                        top
+                    </Link>
+                    <p>|</p>
                     <Link to="/search" className="no-underline">
                         search
                     </Link>

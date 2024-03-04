@@ -15,29 +15,33 @@ export const CREATE_LINK_MUTATION = gql`
 `
 
 export const FEED_QUERY = gql`
-{
-    feed {
+  query FeedQuery(
+    $take: Int
+    $skip: Int
+    $orderBy: LinkOrderByInput
+  ) {
+    feed(take: $take, skip: $skip, orderBy: $orderBy) {
+      id
+      links {
         id
-        links {
-            id
-            createdAt
-            url
-            description
-            postedBy {
-                id
-                name
-            }
-            votes {
-                id
-                user {
-                    id
-                }
-            }
+        createdAt
+        url
+        description
+        postedBy {
+          id
+          name
         }
+        votes {
+          id
+          user {
+            id
+          }
+        }
+      }
+      count
     }
-}
-`
-    ;
+  }
+`;
 
 export const VOTE_MUTATION = gql`
 mutation VoteMutation($linkId: ID!) {
