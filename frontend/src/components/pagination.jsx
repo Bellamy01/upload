@@ -7,7 +7,7 @@ export default function Pagination({ isNewPage, page, data }) {
     return (
         <>
             {isNewPage && (
-                <div className="flex ml-4 my-3 bg-gray-500">
+                <div className="flex ml-4 my-3 gap-10">
                     <div className="cursor-pointer mr-2" onClick={() => {
                         if (page > 1) {
                             navigate(`/new/${page - 1}`)
