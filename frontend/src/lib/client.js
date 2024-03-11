@@ -7,7 +7,7 @@ import { AUTH_TOKEN } from '../lib/constants';
 
 // HTTP Link
 const httpLink = createHttpLink({
-    uri: 'http://localhost:4000'
+    uri: 'http://localhost:4000',
 });
 
 // Authorization Link
@@ -16,7 +16,9 @@ const authLink = setContext((_, { headers }) => {
     return {
         headers: {
             ...headers,
-            authorization: token ? `Bearer ${token}` : ''
+            authorization: token ? `Bearer ${token}` : '',  
+            'client-name': 'Upload [Web]',
+            'client-version': '1.0.0',
         }
     }
 })

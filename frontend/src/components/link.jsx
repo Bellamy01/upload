@@ -60,7 +60,7 @@ export default function Link(props) {
                 )}
             </div>
             <div className='flex items-start flex-col'>
-                <div className='flex items-center gap-1 justify-center'>
+                <div className='flex flex-wrap'>
                     <p className="text-base">{link.description}</p>
                     <p className="text-xs text-gray-500">({link.url})</p>
                 </div>
