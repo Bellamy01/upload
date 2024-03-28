@@ -7,7 +7,7 @@ import { AUTH_TOKEN } from '../lib/constants';
 
 // HTTP Link
 const httpLink = createHttpLink({
-    uri: 'http://localhost:4000',
+    uri: 'https://upload-api-three.vercel.app/',
 });
 
 // Authorization Link
@@ -25,7 +25,7 @@ const authLink = setContext((_, { headers }) => {
 
 // Web Socket Link
 const wsLink = new WebSocketLink({
-    uri: `ws://localhost:4000/graphql`,
+    uri: `ws://upload-api-three.vercel.app/graphql`,
     options: {
         reconnect: true,
         connectionParams: {
