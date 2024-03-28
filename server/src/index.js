@@ -15,7 +15,7 @@ const { getUserId } = require('./utils');
 const pubsub = new PubSub();
 
 const corsOptions = {
-  origin: 'https://my-upload-zeta.vercel.app/',
+  origin: ['https://my-upload-zeta.vercel.app/'],
   credentials: true,
   allowedHeaders: ['Content-type', 'Authorization'],
   methods: 'GET,POST,PUT,DELETE'
@@ -72,7 +72,8 @@ const server = new ApolloServer({
 
 const app = express();
 app.use(cors(corsOptions));
-app.use('/', (req,res) => {
+app.use(express.json())
+app.get('/', (req,res) => {
   res.send('UPLOAD BACKEND IS ON!!!');
 });
 
