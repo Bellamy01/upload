@@ -1,5 +1,7 @@
 const { ApolloServer, PubSub } = require('apollo-server');
 const { PrismaClient } = require('@prisma/client');
+const cors = require('cors');
+const express = require('express');
 const Query = require('./resolvers/Query');
 const Mutation = require('./resolvers/Mutation');
 const Subscription = require('./resolvers/Subscription');
@@ -11,6 +13,13 @@ const path = require('path');
 const { getUserId } = require('./utils');
 
 const pubsub = new PubSub();
+
+const corsOptions = {
+  origin: '*',
+  credentials: true,
+  allowedHeaders: ['Content-type', 'Authorization'],
+  methods: 'GET,POST,PUT,DELETE'
+}
 
 const prisma = new PrismaClient({
   errorFormat: 'minimal'
@@ -60,6 +69,14 @@ const server = new ApolloServer({
     }
   }
 });
+
+const app = express();
+app.use(cors(corsOptions));
+app.use('/', (req,res) => {
+  res.send('UPLOAD BACKEND IS ON!!!');
+});
+
+app.use('/graphql', server.getMiddleware());
 
 server
   .listen()
