@@ -15,7 +15,7 @@ const { getUserId } = require('./utils');
 const pubsub = new PubSub();
 
 const corsOptions = {
-  origin: '*',
+  origin: 'https://my-upload-zeta.vercel.app/',
   credentials: true,
   allowedHeaders: ['Content-type', 'Authorization'],
   methods: 'GET,POST,PUT,DELETE'
